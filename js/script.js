@@ -2,6 +2,19 @@
 let criteriaCount = 0;
 let criteria = [];
 let pairwiseValues = {};
+let exportData = {}; // Armazenará os dados para exportação
+
+// Preenche o menu de quantidade de critérios após o carregamento do DOM
+document.addEventListener('DOMContentLoaded', () => {
+  const countSelect = document.getElementById("criteria-count");
+  countSelect.innerHTML = "";
+  for (let i = 1; i <= 20; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i;
+    countSelect.appendChild(option);
+  }
+});
 
 // 1: Processa a quantidade de critérios selecionada
 function processCriteriaCount() {
@@ -68,7 +81,7 @@ function backToNames() {
 function generatePairwiseForm() {
   const container = document.getElementById("pairwise-form");
   let html = "<table>";
-  // Cabeçalho: linha com células vazia + nomes dos critérios
+  // Cabeçalho: linha com célula vazia + nomes dos critérios
   html += "<tr><th></th>";
   for (let j = 0; j < criteria.length; j++) {
     html += `<th>${criteria[j]}</th>`;
@@ -153,7 +166,7 @@ function updateReciprocal(i, j) {
   }
 }
 
-// 3/4: Calcula os pesos e as métricas do AHP
+// 3/4: Calcula os pesos e as métricas do AHP e exibe os resultados
 function calculateAHP() {
   const nCriteria = criteria.length;
   let matrix = [];
@@ -218,6 +231,7 @@ function calculateAHP() {
   let RI = RI_values[nCriteria] || 1.5;
   let CR = RI === 0 ? 0 : CI / RI;
 
+  // Exibe os resultados e armazena os dados para exportação
   displayResults(weights, lambdaMax, CI, CR, matrix);
 }
 
@@ -227,7 +241,7 @@ function backToPairwise() {
   document.getElementById("pairwise-section").classList.remove("hidden");
 }
 
-// 4: Exibe os resultados
+// 4: Exibe os resultados e armazena os dados para exportação
 function displayResults(weights, lambdaMax, CI, CR, matrix) {
   const resultsDiv = document.getElementById("results");
   let html = "<h3>Pesos dos Critérios:</h3><ul>";
@@ -239,11 +253,6 @@ function displayResults(weights, lambdaMax, CI, CR, matrix) {
   html += `<p>λ máximo (lambda max): ${lambdaMax.toFixed(4)}</p>`;
   html += `<p>Índice de Consistência (CI): ${CI.toFixed(4)}</p>`;
   html += `<p>Razão de Consistência (CR): ${CR.toFixed(4)}</p>`;
-  if (CR > 0.1) {
-    html += `<p style="color: red;">A consistência das comparações não é aceitável (CR > 0.1). Revise os julgamentos.</p>`;
-  } else {
-    html += `<p style="color: green;">A consistência das comparações é aceitável (CR ≤ 0.1).</p>`;
-  }
   html += "<h3>Matriz de Comparação:</h3>";
   html += "<table><tr><th></th>";
   for (let i = 0; i < criteria.length; i++) {
@@ -262,4 +271,102 @@ function displayResults(weights, lambdaMax, CI, CR, matrix) {
   resultsDiv.innerHTML = html;
   document.getElementById("pairwise-section").classList.add("hidden");
   document.getElementById("result-section").classList.remove("hidden");
+
+  // Armazena os dados para exportação
+  exportData = {
+    criteria: criteria,
+    weights: weights,
+    lambdaMax: lambdaMax,
+    CI: CI,
+    CR: CR,
+    matrix: matrix
+  };
+}
+
+// Função para exportar o relatório no formato escolhido
+function exportDataReport() {
+  const format = document.getElementById("export-format").value;
+  if (format === "PDF") {
+    exportPDF();
+  } else if (format === "CSV") {
+    exportCSV();
+  } else if (format === "XLSX") {
+    exportXLSX();
+  } else {
+    alert("Formato de exportação desconhecido.");
+  }
+}
+
+// Exporta o relatório inteiro para PDF (relatório completo exibido na seção de resultados)
+function exportPDF() {
+  const results = document.getElementById('results');
+  const opt = {
+    margin: 1,
+    filename: 'resultados_ahp.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(results).save();
+}
+
+// Exporta a matriz de comparação e métricas para CSV
+function exportCSV() {
+  if (!exportData || !exportData.matrix) {
+    alert("Dados de exportação não encontrados.");
+    return;
+  }
+  let csvContent = "";
+  // Cabeçalho da matriz
+  csvContent += "," + exportData.criteria.join(",") + "\n";
+  for (let i = 0; i < exportData.criteria.length; i++) {
+    let row = exportData.criteria[i];
+    for (let j = 0; j < exportData.criteria.length; j++) {
+      row += "," + exportData.matrix[i][j].toFixed(4);
+    }
+    csvContent += row + "\n";
+  }
+  // Adiciona as métricas de consistência
+  csvContent += "\nMétricas de Consistência\n";
+  csvContent += "λ máximo," + exportData.lambdaMax.toFixed(4) + "\n";
+  csvContent += "CI," + exportData.CI.toFixed(4) + "\n";
+  csvContent += "CR," + exportData.CR.toFixed(4) + "\n";
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "matriz_ahp.csv";
+  link.click();
+}
+
+// Exporta a matriz de comparação e métricas para XLSX
+function exportXLSX() {
+  if (!exportData || !exportData.matrix) {
+    alert("Dados de exportação não encontrados.");
+    return;
+  }
+  let ws_data = [];
+  // Cabeçalho da matriz
+  let header = [""].concat(exportData.criteria);
+  ws_data.push(header);
+  // Linhas da matriz
+  for (let i = 0; i < exportData.criteria.length; i++) {
+    let row = [exportData.criteria[i]];
+    for (let j = 0; j < exportData.criteria.length; j++) {
+      row.push(exportData.matrix[i][j].toFixed(4));
+    }
+    ws_data.push(row);
+  }
+  // Linha em branco e métricas de consistência
+  ws_data.push([]);
+  ws_data.push(["Métricas de Consistência"]);
+  ws_data.push(["λ máximo", exportData.lambdaMax.toFixed(4)]);
+  ws_data.push(["CI", exportData.CI.toFixed(4)]);
+  ws_data.push(["CR", exportData.CR.toFixed(4)]);
+
+  let ws = XLSX.utils.aoa_to_sheet(ws_data);
+  let wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Relatório AHP");
+  XLSX.writeFile(wb, "matriz_ahp.xlsx");
 }

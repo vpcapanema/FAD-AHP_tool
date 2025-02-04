@@ -13,22 +13,17 @@
     </p>
   </header>
 
-  <!-- 1: Seleção da quantidade de critérios -->
+  <!-- 1: Selecione a quantidade de critérios que deseja comparar -->
   <section id="step1-section">
     <h2>1: Selecione a quantidade de critérios que deseja comparar</h2>
     <select id="criteria-count">
-      <!-- Gerar opções de 1 a 20 -->
-      <script>
-        for (let i = 1; i <= 20; i++) {
-          document.write("<option value='" + i + "'>" + i + "</option>");
-        }
-      </script>
+      <!-- As opções serão preenchidas dinamicamente -->
     </select>
     <br>
     <button onclick="processCriteriaCount()">Continuar</button>
   </section>
 
-  <!-- 2: Atribuição de nomes aos critérios -->
+  <!-- 2: Atribua nomes aos seus critérios -->
   <section id="names-section" class="hidden">
     <h2>2: Atribua nomes aos seus critérios</h2>
     <div id="names-container">
@@ -57,8 +52,19 @@
     <div id="results"></div>
     <button onclick="backToPairwise()">Voltar</button>
     <button onclick="location.reload()">Reiniciar</button>
+    <br>
+    <label for="export-format">Exportar relatório:</label>
+    <select id="export-format">
+      <option value="PDF">PDF - Relatório inteiro</option>
+      <option value="CSV">CSV - Matriz e métricas</option>
+      <option value="XLSX">XLSX - Matriz e métricas</option>
+    </select>
+    <button onclick="exportDataReport()">Exportar</button>
   </section>
 
+  <!-- Inclusão das bibliotecas via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
