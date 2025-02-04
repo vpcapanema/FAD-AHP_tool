@@ -1,0 +1,72 @@
+/* Fonte moderna semelhante à do Windows 11 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background-color: #fafafa;
+    color: #333;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+  }
+  
+  .summary {
+    font-size: 1em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  
+  section {
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .instruction {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 10px 0;
+    width: 100%;
+  }
+  
+  table, th, td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+  }
+  
+  input, select, button, textarea {
+    font-size: 16px;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  

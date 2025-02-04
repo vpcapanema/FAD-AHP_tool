@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>CALCULADORA AHP</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>CALCULADORA AHP</h1>
+    <p class="summary">
+      A Análise Hierárquica de Processo (AHP) é uma ferramenta de suporte à decisão baseada na análise multicritério. O método baseia-se na construção de uma matriz de comparações pareadas, onde os critérios são comparados par a par. A comparação é feita por meio da atribuição de valores de intensidade de importância com base em uma escala que varia de 1 a 9. Os valores de intensidade de importância são consolidados para calcular os pesos globais. A validação da comparação pareada é medida pela Razão de Consistência (RC) que mede a lógica da hierarquização (<a href="https://www.sciencedirect.com/science/article/abs/pii/037722179090057I" target="_blank">SAATY, 1990</a>; <a href="https://link.springer.com/article/10.2333/bhmk.18.29_1" target="_blank">1991</a>).
+    </p>
+  </header>
+
+  <!-- 1: Seleção da quantidade de critérios -->
+  <section id="step1-section">
+    <h2>1: Selecione a quantidade de critérios que deseja comparar</h2>
+    <select id="criteria-count">
+      <!-- Gerar opções de 1 a 20 -->
+      <script>
+        for (let i = 1; i <= 20; i++) {
+          document.write("<option value='" + i + "'>" + i + "</option>");
+        }
+      </script>
+    </select>
+    <br>
+    <button onclick="processCriteriaCount()">Continuar</button>
+  </section>
+
+  <!-- 2: Atribuição de nomes aos critérios -->
+  <section id="names-section" class="hidden">
+    <h2>2: Atribua nomes aos seus critérios</h2>
+    <div id="names-container">
+      <!-- Os campos serão gerados dinamicamente -->
+    </div>
+    <button onclick="backToStep1()">Voltar</button>
+    <button onclick="processCriteriaNames()">Continuar</button>
+  </section>
+
+  <!-- 3: Comparação Pareada dos Critérios -->
+  <section id="pairwise-section" class="hidden">
+    <h2>3: Comparação Pareada dos Critérios</h2>
+    <p class="instruction">
+      Para cada célula acima da diagonal, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o critério da coluna. Os valores abaixo da diagonal serão calculados automaticamente como o recíproco.
+    </p>
+    <div id="pairwise-form">
+      <!-- A matriz de comparação será construída aqui -->
+    </div>
+    <button onclick="backToNames()">Voltar</button>
+    <button onclick="calculateAHP()">Calcular Pesos e Consistência</button>
+  </section>
+
+  <!-- 4: Resultados -->
+  <section id="result-section" class="hidden">
+    <h2>4: Resultados</h2>
+    <div id="results"></div>
+    <button onclick="backToPairwise()">Voltar</button>
+    <button onclick="location.reload()">Reiniciar</button>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
