@@ -147,7 +147,7 @@
 .section-box {
     background: rgba(255, 255, 255, 0.95); /* Fundo branco com transparência */
     padding: 18px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Sombra sutil */
     margin-bottom: 20px;
     font-family: 'Lato', sans-serif;

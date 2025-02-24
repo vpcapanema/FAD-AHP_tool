@@ -4,14 +4,479 @@
   <meta charset="UTF-8">
   <title>CALCULADORA AHP</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="config_page/modelos_css/linha_menu.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        .header-bg {
+            background: url('data/CAPA_DER_001_paisagem_claro.jpg') no-repeat center center;
+            background-size: cover;
+            color: rgb(13, 6, 6);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>CALCULADORA AHP</h1>
+   <!-- Barra do Governo de São Paulo -->
+   <div class="row border_shadow_barra_top">
+    <section class="govsp-topo"> 
+        <link rel="stylesheet" type="text/css" href="https://saopaulo.sp.gov.br/barra-govsp/css/topo-padrao-govsp.min.css">
+        <link rel="stylesheet" type="text/css" href="https://saopaulo.sp.gov.br/barra-govsp/css/barra-contraste-govsp.min.css">  
+            <div id="govsp-topbarGlobal" class="blu-e">
+                    <div id="topbarGlobal">
+                        <div id="topbarLink" class="govsp-black">
+                        <div class="govsp-portal">
+                            <a href="http://www.saopaulo.sp.gov.br/">
+                                <img src="https://saopaulo.sp.gov.br/barra-govsp/img/logo-governo-do-estado-sp.png" alt="Governo do Estado de São Paulo" height="38" class="logo">
+                            </a>
+                        </div> 
+                    </div>
+                    <nav class="govsp-navbar govsp-navbar-expand-lg">
+                        
+                            
+        
+                            <a class="govsp-social" href="https://www.flickr.com/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-flickr.png" alt="Flickr Governo de São Paulo"></a>
+                                                
+                            <a class="govsp-social" href="https://www.linkedin.com/company/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-linkedin.png" alt="Linkedin Governo de São Paulo"></a>
+        
+                            <a class="govsp-social" href="https://www.tiktok.com/@governosp" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-tiktok.png" alt="TikTok Governo de São Paulo"></a>
+                            
+                            
+                            <a class="govsp-social" href="https://www.youtube.com/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-youtube.png" alt="Youtube Governo de São Paulo"></a>
+                            
+                            <a class="govsp-social" href="https://www.twitter.com/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-twitter.png" alt="Facebook Governo de São Paulo"></a>
+        
+                            <a class="govsp-social" href="https://www.instagram.com/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-insta.png" alt="Instagram Governo de São Paulo"></a>     
+                                        
+                            <a class="govsp-social" href="https://www.facebook.com/governosp/" target="_blank"><img class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-facebook.png" alt="Facebook Governo de São Paulo"></a>
+                            
+                            
+                            <p class="govsp-social">/governosp</p>
+                            <div id="separador-nav"></div>
+                            <a class="govsp-acessibilidade" href="javascript:mudaTamanho('body', 1);"><img class="govsp-acessibilidade" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-big-font.png" alt="Aumentar Fonte"></a>
+                            <a class="govsp-acessibilidade" href="javascript:mudaTamanho('body', -1);"><img class="govsp-acessibilidade" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-small-font.png" alt="Diminuir Fonte"></a>
+                            <a class="govsp-acessibilidade" href="#" id="altocontraste" accesskey="3" onclick="window.toggleContrast()" onkeydown="window.toggleContrast()"><img class="govsp-acessibilidade" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-contrast.png" alt="Contraste"></a>
+                            <a class="govsp-acessibilidade" href="http://www.saopaulo.sp.gov.br/fale-conosco/comunicar-erros/" title="Comunicar Erros" target="_blank"><img class="govsp-acessibilidade" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-error-report.png"></a>
+                            
+                    </nav>
+                </div>
+                <div class="govsp-kebab">
+                        <figure></figure>
+                        <figure class="govsp-middle"></figure>
+                        <p class="govsp-cross"></p>
+                        <figure></figure>
+                        <ul class="govsp-dropdown" id="govsp-kebab">               
+                            
+                        </ul> 
+                </div>
+            </div>
+            <script src="https://saopaulo.sp.gov.br/barra-govsp/js/script-topo.js"></script>
+            <script src="https://saopaulo.sp.gov.br/barra-govsp/js/script-contrast.js"></script>
+            <script src="https://saopaulo.sp.gov.br/barra-govsp/js/script-tamanho-fonte.js"></script>
+            <script src="https://saopaulo.sp.gov.br/barra-govsp/js/script-scroll.js"></script>
+    </section>
+</div>
+ <!-- Cabeçalho -->
+ <header class="header-bg text-center py-4">
+  <div class="container">
+      <h1 class="fw-bold mb-2">CALCULADORA AHP</h1>
+      <h2 class="h5 mb-0">COORDENADORIA DE ESTUDOS E PESQUISAS</h2>
+  </div>
+</header>
+
+<div class="row linha_menu">
+  <style>
+      .titulogeral {
+          color: #495057 !important;
+          text-decoration: none;
+      }
+      .titulogeral a:hover {
+          color: #fafafa;
+          text-decoration: none;
+      }
+      .titulo1 {
+          font-family: 'Inter', sans-serif;
+          font-weight: 800;
+          line-height: 1.1;
+          font-size: 33px;
+      }
+      .titulo2 {
+          text-align: left;
+          display: block;
+          width: 160px;
+          font-size: 14px;
+          font-weight: 400;
+      }
+      .nav__container, header {
+          width: 100%;
+          background-color: #fafafa;
+      }
+      .nav__container {
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          -webkit-box-align: stretch;
+          -ms-flex-align: stretch;
+          align-items: stretch;
+          padding: 15px;
+      }
+      .nav__mobile .nav__btn {
+          display: block;
+      }
+      .nav__mobile {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+          justify-content: space-between;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+      }
+      .nav__logo {
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: #555;
+      }
+      .nav__menu {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          overflow: hidden;
+          z-index: 999;
+          position: relative;
+      }
+      .showing {
+          max-height: 37rem;
+          -webkit-transition: all .5s;
+          transition: all .5s;
+      }
+      .nav__menu li {
+          list-style: none;
+          position: relative;
+          white-space: nowrap;
+          padding: 1rem 0 0;
+      }
+      .nav__menu li a {
+          display: block;
+          font-size: 0.7rem;
+          color: #222;
+          text-decoration: none;
+      }
+      .nav-toggle {
+          display: block;
+          background-color: transparent;
+          width: 40px;
+          cursor: pointer;
+          padding: 4px;
+          opacity: 1;
+      }
+      .nav-toggle span {
+          position: relative;
+          display: block;
+          height: 4px;
+          border-radius: 35px;
+          width: 100%;
+          margin-top: 0;
+          background-color: #000;
+          -webkit-transition: all .25s;
+          transition: all .25s;
+      }
+      .nav-toggle span.mrg {
+          margin-top: 5px;
+      }
+      .nav-toggle.open span:first-child {
+          -webkit-transform: rotate(45deg) translate(6.2px,6.2px);
+          transform: rotate(45deg) translate(6.2px,6.2px);
+      }
+      .nav-toggle.open span:nth-child(2) {
+          width: 0;
+          opacity: 0;
+      }
+      .nav-toggle.open span:last-child {
+          -webkit-transform: rotate(-45deg) translate(6.2px,-6.2px);
+          transform: rotate(-45deg) translate(6.2px,-6.2px);
+      }
+      .nav__menu .dropdown ul {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          position: static;
+          padding: 0;
+          max-height: 0;
+          overflow: hidden;
+          -webkit-transition: all .4s;
+          transition: all .4s;
+      }
+      .nav__menu .dropdown ul.show {
+          max-height: 100rem;
+          -webkit-transition: all .4s;
+          transition: all .4s;
+      }
+      .nav__menu .dropdown li a {
+          display: block;    
+          text-transform: capitalize;
+          color: #222;
+          text-decoration: none;
+      }
+      .nav__menu li a:hover {
+          color: #0062a3;
+      }
+      .nav__menu .dropdown>a:after {
+          content: "\f107";
+          font: normal normal normal 14px/1 FontAwesome;
+          font-weight: 900;
+          font-size: .500rem;
+          padding-left: 5px;
+          color: #7e7e7e;
+      }
+      .nav__menu .active.dropdown>a:after {
+          content: "\f106";
+      }
+      .nav__menu .dropdown .dropdown>a:after {
+          content: "\f107";
+          font: normal normal normal 14px/1 FontAwesome;
+          font-weight: 900;
+          font-size: .500rem;
+          padding-left: 5px;
+          color: #7e7e7e;
+      }
+      .nav__menu .dropdown .active.dropdown>a:after {
+          content: "\f106";
+      }
+      .menu-toggle {
+          max-height: 0;
+          overflow: hidden;
+      }
+      .menu-toggle,.menu-toggle.active {
+          -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+      }
+      .menu-toggle.active {
+          max-height: 100vh;
+      }
+      .resize-animation-stopper * {
+          -webkit-transition: none!important;
+          transition: none!important;
+          -webkit-animation: none!important;
+          animation: none!important;
+      }
+      @media screen and (min-width: 800px) {
+          .menu-toggle {
+              display:-webkit-box!important;
+              display: -ms-flexbox!important;
+              display: flex!important;
+              max-height: 100vh;
+              overflow: visible;
+          }
+          .nav__container {
+              width: 100%;        
+              margin: auto;
+              -webkit-box-orient: horizontal;
+              -webkit-box-direction: normal;
+              -ms-flex-direction: row;
+              flex-direction: row;
+              padding: 10px 40px 10px 40px;
+          }
+          .nav__container,.nav__mobile {
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-pack: justify;
+              -ms-flex-pack: justify;
+              justify-content: space-between;
+              -webkit-box-align: center;
+              -ms-flex-align: center;
+              align-items: center;
+          }
+          .nav__mobile .nav__btn {
+              display: none;
+          }
+          .nav__logo img {
+              width: 100%;
+              max-width: 58px;
+          }
+          .nav__menu {
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-orient: horizontal;
+              -webkit-box-direction: normal;
+              -ms-flex-direction: row;
+              flex-direction: row;
+              max-height: 100%;
+              overflow: visible;
+          }
+          .nav__menu li {
+              list-style: none;
+              position: relative;
+              white-space: nowrap;
+              padding: 1rem;
+          }
+          .nav__menu li a {
+              font-size: 1rem;
+              color: #222;
+              text-decoration: none;
+          }
+          .nav__menu li a:hover {
+              color: #0062a3;
+          }
+          .nav__menu .dropdown {
+              position: relative;
+          }
+          .nav__menu .dropdown ul {
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-orient: vertical;
+              -webkit-box-direction: normal;
+              -ms-flex-direction: column;
+              flex-direction: column;
+              position: absolute;
+              top: 100%;
+              left: -30px;
+              opacity: 0;
+              visibility: hidden;
+              padding: 0 1rem;
+              -webkit-transition: all .4s ease;
+              transition: all .4s ease;
+          }
+          .nav__menu .dropdown:hover>ul {
+              top: 100%;
+              left: 0;
+              opacity: 1;
+              visibility: visible;
+              overflow: visible;
+              padding: 0 1rem;
+          }
+          .nav__menu .dropdown ul li {
+              padding: 1.5rem;
+              background-color: #fafafa;
+              position: relative;
+          }
+          .nav__menu .dropdown ul li:hover {
+              background-color: #3493e0;
+          }
+          .nav__menu .dropdown ul li a {
+              display: block;
+              color: #000;
+              text-transform: capitalize;
+          }
+          .nav__menu .dropdown ul li a:hover {
+              display: block;
+              color: #c7e0f5;
+          }
+          .nav__menu .dropdown:hover>a:after,.nav__menu .dropdown>a:after {
+              font: normal normal normal 14px/1 FontAwesome;
+              font-weight: 900;
+              font-size: .875rem;
+              padding-left: 5px;
+              color: #7c7c7c;
+          }
+          .nav__menu .dropdown:hover>a:after {
+              content: "\f106";
+          }
+          .nav__menu .dropdown .dropdown>a:after {
+              content: "\f105";
+          }
+          .nav__menu .dropdown .dropdown:hover>a:after {
+              content: "\f104";        
+          }
+          .nav__menu .dropdown>a:after {
+              content: "\f107";
+          }
+          .nav__menu .dropdown .dropdown:hover>a:after,.nav__menu .dropdown .dropdown>a:after {
+              font: normal normal normal 14px/1 FontAwesome;
+              font-weight: 900;
+              font-size: .875rem;
+              padding-left: 10px;
+              color: #000;
+          }
+          .nav__menu .dropdown .dropdown:hover>ul {
+              position: absolute;
+              top: 0;
+              left: calc(102% - 17px);
+              right: auto;
+              opacity: 1;
+              visibility: visible;
+          }
+          .nav__menu .dropdown .dropdown ul {
+              position: absolute;
+              top: 0;
+              left: calc(102% - 17px);
+              right: auto;
+              opacity: 0;
+              visibility: hidden;
+              -webkit-transition: all .4s ease-in-out;
+              transition: all .4s ease-in-out;
+          }
+      }
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <div class="col-md-12 col-xs-12 img_logo" style="padding:0px">
+      <div class="nav__container">
+          <div class="nav__mobile">
+              <a class="titulogeral" href="/WebSite/Index.aspx">
+                  <span class="titulo1">DER-SP</span>                    
+                  <span class="titulo2">Departamento de Estradas de Rodagem</span>
+              </a>
+              <div class="nav__btn">
+                  <a aria-label="Mobile menu" class="nav-toggle fade"><span></span><span class="mrg"></span><span class="mrg"></span></a>
+              </div>
+          </div>
+          <nav class="menu-toggle">
+              <ul class="nav__menu">
+                  <li class="dropdown"><a href="#"><b>INSTITUCIONAL</b></a>
+                      <ul>
+                          <li><a href="/WebSite/Institucional/MissaoDER.aspx">Missão</a></li>
+                          <li><a href="/WebSite/Institucional/Marca.aspx">Marca</a></li>
+                          <li><a href="/WebSite/Institucional/MemoriaTransporte.aspx">Memória do Transporte</a></li>
+                          <li><a href="/WebSite/Institucional/RelacaoSuperintendentesDER.aspx">Relação de Superintendente</a></li>
+                          <li><a href="http://www.der.sp.gov.br/WebSite/arquivos/Institucional/ORGANOGRAMA.pdf">Organograma</a></li>
+                          <li><a href="/WebSite/Institucional/Sede.aspx">Sede</a></li>
+                          <li><a href="/WebSite/Institucional/DivisoesRegionais.aspx">Divisões Regionais</a></li>
+                          <li><a href="/WebSite/Arquivos/INSTITUCIONAL/Carta_Compromisso.pdf">Carta de Compromisso</a></li>
+                          <li><a href="/WebSite/Arquivos/INSTITUCIONAL/CODIGO_DE_CONDUTA_ETICA_V_FINAL.pdf">Código de Conduta Ética</a></li>
+                          <li><a href="/WebSite/Contatos/ContatoGeral.aspx">Horário de Atendimento</a></li>
+                      </ul>
+                  </li>
+                  <li><a href="#quem-somos">Quem Somos</a></li>
+                  <li><a href="#equipe">Equipe</a></li>
+                  <li><a href="#projetos">Projetos</a></li>
+                  <li><a href="#produtos">Produtos</a></li>
+                  <li><a href="#eventos">Eventos</a></li>
+                  <li><a href="#estatisticas">Estatísticas</a></li>
+                  <li><a href="#contato">Contato</a></li>
+              </ul>
+          </nav>
+          <img src="https://www.der.sp.gov.br/WebSite/img/logoDER.png" class="img-responsive logo-menu logoPadrao" alt="Logo Tipo do DERSP" style="width: 150px;">
+      </div>
+  </div>
+</div>
+
+  <section id="step0-section">
+    <h1 style="text-align: center;">Contextualização</h1> 
+    
     <p class="summary" style="text-align: justify;">
       A Análise Hierárquica de Processo (AHP) é uma ferramenta de suporte à decisão baseada na análise multicritério. O método baseia-se na construção de uma matriz de comparações pareadas, onde os critérios são comparados par a par. A comparação é feita por meio da atribuição de valores de intensidade de importância com base em uma escala que varia de 1 a 9. Os valores de intensidade de importância são consolidados para calcular os pesos globais. A validação da comparação pareada é medida pela Razão de Consistência (RC) que mede a lógica da hierarquização (<a href="https://www.sciencedirect.com/science/article/abs/pii/037722179090057I" target="_blank">SAATY, 1990</a>; <a href="https://link.springer.com/article/10.2333/bhmk.18.29_1" target="_blank">1991</a>).
     </p>
-  </header>
+  </section>
 
   <!-- 1: Selecione a quantidade de critérios -->
   <section id="step1-section">
@@ -59,7 +524,8 @@
   <!-- 3: Escolha do método de preenchimento (definida estática no HTML) -->
   <section id="comparison-method-section" class="hidden" style="max-width: 70%; margin: 0 auto;">
     <h2>3: Escolha o método de preenchimento da matriz de comparação pareada</h2>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; margin: 0 auto;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; 
+    margin-bottom: 20px !important;">
       <div style="flex: 1; max-width: 95%; border: 1px solid #ccc; border-radius: 8px; padding: 10px; text-align: center;">
         <input type="radio" id="method-direct" name="comparisonMethod" value="direct" checked>
         <label for="method-direct">Matriz Direta</label>
