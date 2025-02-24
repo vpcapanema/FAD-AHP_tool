@@ -5,19 +5,7 @@ let criteriaCount = 0;
 let criteria = [];
 let pairwiseValues = {};
 let exportData = {};
-let chosenMethod = "direct"; // Método padrão: "direct" ou "form"
-
-// Preenche o menu de quantidade de critérios após o carregamento do DOM
-document.addEventListener('DOMContentLoaded', () => {
-  const countSelect = document.getElementById("criteria-count");
-  countSelect.innerHTML = "";
-  for (let i = 1; i <= 20; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = i;
-    countSelect.appendChild(option);
-  }
-});
+let chosenMethod = "direct"; // "direct" ou "form"
 
 // -----------------------------------------------------------
 // 1: Processa a quantidade de critérios selecionada
@@ -73,7 +61,6 @@ function processCriteriaNames() {
     criteria.push(name);
   }
   alert("Critérios preenchidos com sucesso!");
-  // Avança para a seleção do método de comparação
   document.getElementById("names-section").classList.add("hidden");
   document.getElementById("comparison-method-section").classList.remove("hidden");
 }
@@ -100,9 +87,12 @@ function selectComparisonMethod() {
   document.getElementById("comparison-method-section").classList.add("hidden");
   document.getElementById("pairwise-section").classList.remove("hidden");
   
+  const h2 = document.querySelector("#pairwise-section h2");
   if (chosenMethod === "direct") {
+    h2.textContent = "4. Matriz direta de comparação pareada dos critérios";
     generateDirectMatrix();
   } else {
+    h2.textContent = "4. Formulário de comparação pareada dos critérios";
     generatePairwiseFormMethod();
   }
 }
@@ -121,14 +111,11 @@ function backToComparisonMethod() {
 function generateDirectMatrix() {
   const container = document.getElementById("pairwise-form");
   let html = "<table>";
-  // Cabeçalho: célula vazia + nomes dos critérios
   html += "<tr><th></th>";
   for (let j = 0; j < criteria.length; j++) {
     html += `<th>${criteria[j]}</th>`;
   }
   html += "</tr>";
-  
-  // Linhas da matriz
   for (let i = 0; i < criteria.length; i++) {
     html += `<tr>`;
     html += `<th>${criteria[i]}</th>`;
@@ -289,7 +276,7 @@ function calculateAHP() {
 }
 
 // -----------------------------------------------------------
-// Volta da etapa 4 para a seção de comparação
+// Volta da etapa 5 para a seção de comparação (etapa 4)
 // -----------------------------------------------------------
 function backToPairwise() {
   document.getElementById("result-section").classList.add("hidden");
@@ -297,7 +284,7 @@ function backToPairwise() {
 }
 
 // -----------------------------------------------------------
-// 4: Exibe os resultados e armazena os dados para exportação
+// 4/5: Exibe os resultados e armazena os dados para exportação
 // -----------------------------------------------------------
 function displayResults(weights, lambdaMax, CI, CR, matrix) {
   const resultsDiv = document.getElementById("results");

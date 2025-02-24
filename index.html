@@ -13,61 +13,88 @@
     </p>
   </header>
 
-  <!-- 1: Selecione a quantidade de critérios -->
+  <!-- Seção 1: Quantidade de Critérios -->
   <section id="step1-section">
     <h2>1: Selecione a quantidade de critérios que deseja comparar</h2>
     <select id="criteria-count">
-      <!-- As opções serão preenchidas dinamicamente -->
+      <!-- Opções definidas diretamente -->
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+      <option value="16">16</option>
+      <option value="17">17</option>
+      <option value="18">18</option>
+      <option value="19">19</option>
+      <option value="20">20</option>
     </select>
     <br>
     <button onclick="processCriteriaCount()">Continuar</button>
   </section>
 
-  <!-- 2: Atribua nomes aos seus critérios -->
+  <!-- Seção 2: Nomes dos Critérios -->
   <section id="names-section" class="hidden">
     <h2>2: Atribua nomes aos seus critérios</h2>
     <div id="names-container">
-      <!-- Campos gerados dinamicamente -->
+      <!-- Os campos serão gerados dinamicamente -->
     </div>
     <button onclick="backToStep1()">Voltar</button>
     <button onclick="processCriteriaNames()">Continuar</button>
   </section>
 
-  <!-- 3a: Escolha o método de preenchimento da comparação pareada -->
+  <!-- Seção 3: Escolha do Método de Preenchimento -->
   <section id="comparison-method-section" class="hidden">
     <h2>3: Escolha o método de preenchimento da matriz de comparação pareada</h2>
     <div class="comparison-options">
       <div class="option">
         <input type="radio" id="method-direct" name="comparisonMethod" value="direct" checked>
         <label for="method-direct">Matriz Direta</label>
-        <div class="image-placeholder">[Imagem da Matriz Direta]</div>
+        <div class="image-placeholder">
+          <img src="img_folder/matriz_direta_ahp.png" alt="Matriz Direta" width="300" height="200">
+        </div>
       </div>
       <div class="option">
         <input type="radio" id="method-form" name="comparisonMethod" value="form">
         <label for="method-form">Formulário</label>
-        <div class="image-placeholder">[Imagem do Formulário]</div>
+        <div class="image-placeholder">
+          <img src="img_folder/formulario_ahp.png" alt="Formulário" width="300" height="200">
+        </div>
       </div>
     </div>
     <button onclick="backToNames()">Voltar</button>
-    <button onclick="selectComparisonMethod()">Ok</button>
+    <button onclick="selectComparisonMethod()">Continuar</button>
   </section>
+  
 
-  <!-- 3b: Comparação Pareada dos Critérios -->
+  <!-- Seção 4: Comparação Pareada dos Critérios -->
   <section id="pairwise-section" class="hidden">
-    <h2>3: Comparação Pareada dos Critérios</h2>
+    <h2 id="pairwise-title">4: Comparação Pareada dos Critérios</h2>
+    <!-- Imagem da escala definida via HTML -->
+    <img src="img_folder/escala_intensidade_importancia_criterios_ahp.png" alt="Escala de Intensidade de Importância dos Critérios" width="700" style="display:block; margin:0 auto 15px; border:2px solid black;">
     <p class="instruction">
       Para cada célula (ou par) da matriz, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o da coluna. Os valores recíprocos serão calculados automaticamente.
     </p>
     <div id="pairwise-form">
-      <!-- Interface de comparação preenchida dinamicamente -->
+      <!-- Interface de comparação gerada dinamicamente -->
     </div>
     <button onclick="backToComparisonMethod()">Voltar</button>
-    <button onclick="calculateAHP()">Calcular Pesos e Consistência</button>
+    <button onclick="calculateAHP()">Continuar</button>
   </section>
 
-  <!-- 4: Resultados -->
+  <!-- Seção 5: Resultados -->
   <section id="result-section" class="hidden">
-    <h2>4: Resultados</h2>
+    <h2>5: Resultados</h2>
     <div id="results"></div>
     <button onclick="backToPairwise()">Voltar</button>
     <button onclick="location.reload()">Reiniciar</button>
