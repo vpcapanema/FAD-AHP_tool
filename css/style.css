@@ -68,28 +68,9 @@ input, select, button, textarea {
 
 button {
   cursor: pointer;
-  border-radius: 10px;
+  padding: 5px;
+  border-radius: 8px;
 }
-
-/* Estilo para as opções de método */
-.comparison-options {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-  border-radius: 10px;
-}
-
-.comparison-options .option {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  width: 40%;
-  border-radius: 10px;
-  text-align: center;
-}
-
-/* Remove controle de tamanho via CSS para as imagens da seção 3,
-   os tamanhos serão definidos no HTML */
 
 /* Centraliza os botões */
 .button-container {

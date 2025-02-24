@@ -8,7 +8,7 @@
 <body>
   <header>
     <h1>CALCULADORA AHP</h1>
-    <p class="summary">
+    <p class="summary" style="text-align: justify;">
       A Análise Hierárquica de Processo (AHP) é uma ferramenta de suporte à decisão baseada na análise multicritério. O método baseia-se na construção de uma matriz de comparações pareadas, onde os critérios são comparados par a par. A comparação é feita por meio da atribuição de valores de intensidade de importância com base em uma escala que varia de 1 a 9. Os valores de intensidade de importância são consolidados para calcular os pesos globais. A validação da comparação pareada é medida pela Razão de Consistência (RC) que mede a lógica da hierarquização (<a href="https://www.sciencedirect.com/science/article/abs/pii/037722179090057I" target="_blank">SAATY, 1990</a>; <a href="https://link.springer.com/article/10.2333/bhmk.18.29_1" target="_blank">1991</a>).
     </p>
   </header>
@@ -56,23 +56,21 @@
     </div>
   </section>
 
-  <!-- 3: Escolha do método de preenchimento -->
-  <section id="comparison-method-section" class="hidden">
+  <!-- 3: Escolha do método de preenchimento (definida estática no HTML) -->
+  <section id="comparison-method-section" class="hidden" style="max-width: 70%; margin: 0 auto;">
     <h2>3: Escolha o método de preenchimento da matriz de comparação pareada</h2>
-    <div class="comparison-options">
-      <div class="option">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; width: 100%; margin: 0 auto;">
+      <div style="flex: 1; max-width: 95%; border: 1px solid #ccc; border-radius: 8px; padding: 10px; text-align: center;">
         <input type="radio" id="method-direct" name="comparisonMethod" value="direct" checked>
         <label for="method-direct">Matriz Direta</label>
-        <div class="image-placeholder">
-          <img src="img_folder/matriz_direta_ahp.png" alt="Matriz Direta" width="400" height="200", border-radius: 10px;>
-        </div>
+        <br>
+        <img src="img_folder/matriz_direta_ahp.png" alt="Matriz Direta" width="434" height="144";max-width: 99%>
       </div>
-      <div class="option">
+      <div style="flex: 1; max-width: 95%; border: 1px solid #ccc; border-radius: 8px; padding: 10px; text-align: center;">
         <input type="radio" id="method-form" name="comparisonMethod" value="form">
         <label for="method-form">Formulário</label>
-        <div class="image-placeholder">
-          <img src="img_folder/formulario_ahp.png" alt="Formulário" width="300" height="200", border-radius: 10px;>
-        </div>
+        <br>
+        <img src="img_folder/formulario_ahp.png" alt="Formulário" width="434" height="144"; max-width: 99%>
       </div>
     </div>
     <div class="button-container">
@@ -84,11 +82,13 @@
   <!-- 4: Comparação Pareada dos Critérios -->
   <section id="pairwise-section" class="hidden">
     <h2 id="pairwise-title">4: Comparação Pareada dos Critérios</h2>
-    <!-- Imagem da escala definida via HTML com tamanho e borda especificados -->
-    <img src="img_folder/escala_intensidade_importancia_criterios_ahp.png" alt="Escala de Intensidade de Importância" 
-    width="700" style="display:block; margin:0 auto 15px; border:2px solid black; border-radius: 10px;">
+    <!-- Imagem da escala definida via HTML -->
+    <img src="img_folder/escala_intensidade_importancia_criterios_ahp.png" 
+         alt="Escala de Intensidade de Importância" 
+         width="700" 
+         style="display:block; margin:0 auto 15px; border:2px solid black;">
     <p class="instruction">
-      <!-- A instrução será atualizada dinamicamente -->
+      <!-- O texto será atualizado dinamicamente conforme o método -->
     </p>
     <div id="pairwise-form">
       <!-- Interface de comparação gerada dinamicamente -->
