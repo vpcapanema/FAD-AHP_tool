@@ -1,0 +1,199 @@
+/* =======================
+   1. CONFIGURAÇÃO DA BARRA SUPERIOR (TOPO)
+   ======================= */
+#topbarGlobal {
+    background-color: black; /* Fundo preto */
+    padding: 8px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Container interno da barra superior */
+.govsp-container {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Logo do Governo do Estado de São Paulo */
+.govsp-logo img {
+    height: 50px;
+}
+
+
+/* Seção das redes sociais na barra superior */
+.govsp-redes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Ícones das redes sociais */
+.govsp-icon img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.govsp-icon img:hover {
+    opacity: 1;
+}
+
+/* Texto ao lado dos ícones das redes sociais */
+.govsp-text {
+    font-size: 14px;
+    color: gray;
+    text-decoration: none;
+}
+
+/* Botões de acessibilidade no canto superior direito */
+.govsp-acessibilidade {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.govsp-acessibilidade button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.govsp-acessibilidade button img {
+    width: 24px;
+    height: 24px;
+}
+
+.govsp-acessibilidade button:hover {
+    opacity: 0.7;
+}
+
+
+/* =======================
+   2. CONFIGURAÇÃO DO CABEÇALHO (HEADER)
+   ======================= */
+
+/* Define o plano de fundo do cabeçalho */
+.header-bg {
+    background: url('https://raw.githubusercontent.com/cep-der/website-/main/data/der_layout_001_paisagem_claro.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 30px 20px; /* Adicionado padding lateral */
+}
+
+/* Contêiner flexível para as logos dentro do cabeçalho */
+.logo-container {
+    display: flex;
+    justify-content: space-between; /* Move as logos para as extremidades */
+    align-items: center;
+    padding: 0 50px; /* Espaçamento lateral */
+}
+
+/* Ajuste do tamanho das logos do cabeçalho */
+.logo-sp, .logo-der {
+    height: 140px; /* Tamanho das logos aumentado */
+}
+
+/* Centraliza os títulos no cabeçalho */
+.header-title {
+    text-align: center;
+    flex: 1; /* Garante que ocupe o espaço central */
+}
+
+.header-title h1 {
+    font-size: 2.2rem; /* Maior destaque para o título principal */
+    font-weight: bold;
+}
+
+.header-title h2 {
+    font-size: 1.4rem; /* Subtítulo menor */
+}
+
+
+/* =======================
+   3. MENU DE NAVEGAÇÃO
+   ======================= */
+.navbar {
+    padding: 10px 30px;
+}
+
+/* Ajusta a marca "DER/SP" para a esquerda */
+.navbar-brand {
+    margin-right: auto;
+}
+
+/* Move os itens do menu para a direita */
+.navbar-nav {
+    margin-left: auto;
+}
+
+
+/* =======================
+   4. CONFIGURAÇÃO DO CONTEÚDO PRINCIPAL
+   ======================= */
+
+/* Define a largura máxima dos contêineres de conteúdo */
+.container {
+    max-width: 55%; /* Ajustado para uma proporção ideal */
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Caixa de seção para os conteúdos principais */
+.section-box {
+    background: rgba(255, 255, 255, 0.95); /* Fundo branco com transparência */
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+    margin-bottom: 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem; /* Texto levemente reduzido */
+}
+
+
+/* =======================
+   5. AJUSTES PARA RESPONSIVIDADE
+   ======================= */
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajusta o tamanho do contêiner para telas menores */
+    .container {
+        max-width: 95%;
+        padding: 0 20px;
+    }
+
+    .section-box {
+        padding: 15px;
+    }
+
+    /* Reorganiza as logos no cabeçalho para dispositivos menores */
+    .logo-container {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    /* Reduz o tamanho das logos */
+    .logo-sp, .logo-der {
+        height: 110px;
+    }
+
+    /* Reduz os tamanhos dos títulos no cabeçalho */
+    .header-title h1 {
+        font-size: 1.8rem;
+    }
+
+    .header-title h2 {
+        font-size: 1.1rem;
+    }
+}
