@@ -1,8 +1,11 @@
-// Variáveis globais
+// ---------------------------------------------
+// Variáveis globais (declaração única)
+// ---------------------------------------------
 let criteriaCount = 0;
 let criteria = [];
 let pairwiseValues = {};
-let exportData = {}; // Armazenará os dados para exportação
+let exportData = {};
+let chosenMethod = "direct"; // Método padrão: "direct" ou "form"
 
 // Preenche o menu de quantidade de critérios após o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,17 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// -----------------------------------------------------------
 // 1: Processa a quantidade de critérios selecionada
+// -----------------------------------------------------------
 function processCriteriaCount() {
   const countSelect = document.getElementById("criteria-count");
   criteriaCount = parseInt(countSelect.value);
-  // Avança para a 2ª etapa
   document.getElementById("step1-section").classList.add("hidden");
   showNamesSection();
   document.getElementById("names-section").classList.remove("hidden");
 }
 
+// -----------------------------------------------------------
 // 2: Gera os campos para nomes dos critérios
+// -----------------------------------------------------------
 function showNamesSection() {
   const container = document.getElementById("names-container");
   container.innerHTML = "";
@@ -46,7 +52,9 @@ function backToStep1() {
   document.getElementById("step1-section").classList.remove("hidden");
 }
 
+// -----------------------------------------------------------
 // 2: Processa e valida os nomes dos critérios
+// -----------------------------------------------------------
 function processCriteriaNames() {
   criteria = [];
   for (let i = 0; i < criteriaCount; i++) {
@@ -65,55 +73,106 @@ function processCriteriaNames() {
     criteria.push(name);
   }
   alert("Critérios preenchidos com sucesso!");
-  // Avança para a 3ª etapa
+  // Avança para a seleção do método de comparação
   document.getElementById("names-section").classList.add("hidden");
-  generatePairwiseForm();
-  document.getElementById("pairwise-section").classList.remove("hidden");
+  document.getElementById("comparison-method-section").classList.remove("hidden");
 }
 
-// Volta da etapa 3 para a etapa 2
+// -----------------------------------------------------------
+// Volta da seleção do método para a etapa 2
+// -----------------------------------------------------------
 function backToNames() {
-  document.getElementById("pairwise-section").classList.add("hidden");
+  document.getElementById("comparison-method-section").classList.add("hidden");
   document.getElementById("names-section").classList.remove("hidden");
 }
 
-// 3: Gera a matriz de comparação pareada
-function generatePairwiseForm() {
+// -----------------------------------------------------------
+// Lê o método selecionado e direciona para a interface de comparação
+// -----------------------------------------------------------
+function selectComparisonMethod() {
+  const radios = document.getElementsByName("comparisonMethod");
+  for (let radio of radios) {
+    if (radio.checked) {
+      chosenMethod = radio.value; // "direct" ou "form"
+      break;
+    }
+  }
+  document.getElementById("comparison-method-section").classList.add("hidden");
+  document.getElementById("pairwise-section").classList.remove("hidden");
+  
+  if (chosenMethod === "direct") {
+    generateDirectMatrix();
+  } else {
+    generatePairwiseFormMethod();
+  }
+}
+
+// -----------------------------------------------------------
+// Volta da seção de comparação para a seleção do método
+// -----------------------------------------------------------
+function backToComparisonMethod() {
+  document.getElementById("pairwise-section").classList.add("hidden");
+  document.getElementById("comparison-method-section").classList.remove("hidden");
+}
+
+// -----------------------------------------------------------
+// Método 1: Gera a interface de comparação com matriz completa (Matriz Direta)
+// -----------------------------------------------------------
+function generateDirectMatrix() {
   const container = document.getElementById("pairwise-form");
   let html = "<table>";
-  // Cabeçalho: linha com célula vazia + nomes dos critérios
+  // Cabeçalho: célula vazia + nomes dos critérios
   html += "<tr><th></th>";
   for (let j = 0; j < criteria.length; j++) {
     html += `<th>${criteria[j]}</th>`;
   }
   html += "</tr>";
+  
   // Linhas da matriz
   for (let i = 0; i < criteria.length; i++) {
     html += `<tr>`;
-    // Primeira coluna com o nome do critério
     html += `<th>${criteria[i]}</th>`;
     for (let j = 0; j < criteria.length; j++) {
       if (i === j) {
-        // Diagonal: 1 em negrito
         html += `<td><strong>1</strong></td>`;
       } else if (i < j) {
-        // Células acima da diagonal: select para escolher valor
         html += `<td>${createSelectInput(i, j)}</td>`;
       } else {
-        // Células abaixo da diagonal: exibem o recíproco da célula simétrica
         const key = "pair_" + j + "_" + i;
         const currentVal = pairwiseValues[key] || 1;
         const reciprocal = (1 / currentVal).toFixed(4);
         html += `<td id="recip_${j}_${i}">${reciprocal}</td>`;
       }
     }
-    html += `</tr>`;
+    html += "</tr>";
   }
   html += "</table>";
   container.innerHTML = html;
 }
 
+// -----------------------------------------------------------
+// Método 2: Gera a interface de comparação pelo formulário (tabela com três colunas)
+// -----------------------------------------------------------
+function generatePairwiseFormMethod() {
+  const container = document.getElementById("pairwise-form");
+  container.innerHTML = "";
+  let html = "<table><tr><th>Critério 1</th><th>Critério 2</th><th>Importância (Escala AHP)</th></tr>";
+  for (let i = 0; i < criteria.length - 1; i++) {
+    for (let j = i + 1; j < criteria.length; j++) {
+      html += "<tr>";
+      html += `<td>${criteria[i]}</td>`;
+      html += `<td>${criteria[j]}</td>`;
+      html += `<td>${createSelectInput(i, j)}</td>`;
+      html += "</tr>";
+    }
+  }
+  html += "</table>";
+  container.innerHTML = html;
+}
+
+// -----------------------------------------------------------
 // Cria o select para a célula de comparação (para i < j)
+// -----------------------------------------------------------
 function createSelectInput(i, j) {
   const options = [
     {value: 1/9, label: "1/9"},
@@ -141,12 +200,13 @@ function createSelectInput(i, j) {
     selectHtml += `<option value="${opt.value}" ${selected}>${opt.label}</option>`;
   }
   selectHtml += "</select>";
-  // Valor inicial
   pairwiseValues[selectId] = 1;
   return selectHtml;
 }
 
+// -----------------------------------------------------------
 // Atualiza o valor selecionado e a célula recíproca correspondente
+// -----------------------------------------------------------
 function storePairwiseValue(i, j) {
   const selectId = "pair_" + i + "_" + j;
   const val = parseFloat(document.getElementById(selectId).value);
@@ -154,7 +214,9 @@ function storePairwiseValue(i, j) {
   updateReciprocal(i, j);
 }
 
+// -----------------------------------------------------------
 // Atualiza a célula da parte inferior (recíproco) para o par (i, j)
+// -----------------------------------------------------------
 function updateReciprocal(i, j) {
   const reciprocalCellId = "recip_" + j + "_" + i;
   const selectId = "pair_" + i + "_" + j;
@@ -166,11 +228,12 @@ function updateReciprocal(i, j) {
   }
 }
 
+// -----------------------------------------------------------
 // 3/4: Calcula os pesos e as métricas do AHP e exibe os resultados
+// -----------------------------------------------------------
 function calculateAHP() {
   const nCriteria = criteria.length;
   let matrix = [];
-  // Constrói a matriz de comparação completa
   for (let i = 0; i < nCriteria; i++) {
     matrix[i] = [];
     for (let j = 0; j < nCriteria; j++) {
@@ -187,8 +250,6 @@ function calculateAHP() {
       }
     }
   }
-
-  // Cálculo dos pesos usando o método da média geométrica
   let geoMeans = [];
   let sumGeo = 0;
   for (let i = 0; i < nCriteria; i++) {
@@ -200,8 +261,6 @@ function calculateAHP() {
     sumGeo += geoMeans[i];
   }
   let weights = geoMeans.map(gm => gm / sumGeo);
-
-  // Cálculo de λ máximo
   let lambdaVector = [];
   for (let i = 0; i < nCriteria; i++) {
     let sumRow = 0;
@@ -211,11 +270,7 @@ function calculateAHP() {
     lambdaVector[i] = sumRow / weights[i];
   }
   let lambdaMax = lambdaVector.reduce((a, b) => a + b, 0) / nCriteria;
-
-  // Índice de Consistência (CI)
   let CI = (lambdaMax - nCriteria) / (nCriteria - 1);
-
-  // Razão de Consistência (CR)
   const RI_values = {
     1: 0.00,
     2: 0.00,
@@ -230,18 +285,20 @@ function calculateAHP() {
   };
   let RI = RI_values[nCriteria] || 1.5;
   let CR = RI === 0 ? 0 : CI / RI;
-
-  // Exibe os resultados e armazena os dados para exportação
   displayResults(weights, lambdaMax, CI, CR, matrix);
 }
 
-// Volta da etapa 4 para a etapa 3
+// -----------------------------------------------------------
+// Volta da etapa 4 para a seção de comparação
+// -----------------------------------------------------------
 function backToPairwise() {
   document.getElementById("result-section").classList.add("hidden");
   document.getElementById("pairwise-section").classList.remove("hidden");
 }
 
+// -----------------------------------------------------------
 // 4: Exibe os resultados e armazena os dados para exportação
+// -----------------------------------------------------------
 function displayResults(weights, lambdaMax, CI, CR, matrix) {
   const resultsDiv = document.getElementById("results");
   let html = "<h3>Pesos dos Critérios:</h3><ul>";
@@ -267,12 +324,9 @@ function displayResults(weights, lambdaMax, CI, CR, matrix) {
     html += "</tr>";
   }
   html += "</table>";
-
   resultsDiv.innerHTML = html;
   document.getElementById("pairwise-section").classList.add("hidden");
   document.getElementById("result-section").classList.remove("hidden");
-
-  // Armazena os dados para exportação
   exportData = {
     criteria: criteria,
     weights: weights,
@@ -283,7 +337,9 @@ function displayResults(weights, lambdaMax, CI, CR, matrix) {
   };
 }
 
-// Função para exportar o relatório no formato escolhido
+// -----------------------------------------------------------
+// Exporta os dados em PDF, CSV ou XLSX
+// -----------------------------------------------------------
 function exportDataReport() {
   const format = document.getElementById("export-format").value;
   if (format === "PDF") {
@@ -297,7 +353,9 @@ function exportDataReport() {
   }
 }
 
-// Exporta o relatório inteiro para PDF (relatório completo exibido na seção de resultados)
+// -----------------------------------------------------------
+// Exporta o relatório inteiro para PDF
+// -----------------------------------------------------------
 function exportPDF() {
   const results = document.getElementById('results');
   const opt = {
@@ -310,14 +368,15 @@ function exportPDF() {
   html2pdf().set(opt).from(results).save();
 }
 
-// Exporta a matriz de comparação e métricas para CSV
+// -----------------------------------------------------------
+// Exporta a matriz e métricas para CSV
+// -----------------------------------------------------------
 function exportCSV() {
   if (!exportData || !exportData.matrix) {
     alert("Dados de exportação não encontrados.");
     return;
   }
   let csvContent = "";
-  // Cabeçalho da matriz
   csvContent += "," + exportData.criteria.join(",") + "\n";
   for (let i = 0; i < exportData.criteria.length; i++) {
     let row = exportData.criteria[i];
@@ -326,12 +385,10 @@ function exportCSV() {
     }
     csvContent += row + "\n";
   }
-  // Adiciona as métricas de consistência
   csvContent += "\nMétricas de Consistência\n";
   csvContent += "λ máximo," + exportData.lambdaMax.toFixed(4) + "\n";
   csvContent += "CI," + exportData.CI.toFixed(4) + "\n";
   csvContent += "CR," + exportData.CR.toFixed(4) + "\n";
-
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -340,17 +397,17 @@ function exportCSV() {
   link.click();
 }
 
-// Exporta a matriz de comparação e métricas para XLSX
+// -----------------------------------------------------------
+// Exporta a matriz e métricas para XLSX
+// -----------------------------------------------------------
 function exportXLSX() {
   if (!exportData || !exportData.matrix) {
     alert("Dados de exportação não encontrados.");
     return;
   }
   let ws_data = [];
-  // Cabeçalho da matriz
   let header = [""].concat(exportData.criteria);
   ws_data.push(header);
-  // Linhas da matriz
   for (let i = 0; i < exportData.criteria.length; i++) {
     let row = [exportData.criteria[i]];
     for (let j = 0; j < exportData.criteria.length; j++) {
@@ -358,13 +415,11 @@ function exportXLSX() {
     }
     ws_data.push(row);
   }
-  // Linha em branco e métricas de consistência
   ws_data.push([]);
   ws_data.push(["Métricas de Consistência"]);
   ws_data.push(["λ máximo", exportData.lambdaMax.toFixed(4)]);
   ws_data.push(["CI", exportData.CI.toFixed(4)]);
   ws_data.push(["CR", exportData.CR.toFixed(4)]);
-
   let ws = XLSX.utils.aoa_to_sheet(ws_data);
   let wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Relatório AHP");

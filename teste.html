@@ -13,7 +13,7 @@
     </p>
   </header>
 
-  <!-- 1: Selecione a quantidade de critérios -->
+  <!-- 1: Selecione a quantidade de critérios que deseja comparar -->
   <section id="step1-section">
     <h2>1: Selecione a quantidade de critérios que deseja comparar</h2>
     <select id="criteria-count">
@@ -27,41 +27,22 @@
   <section id="names-section" class="hidden">
     <h2>2: Atribua nomes aos seus critérios</h2>
     <div id="names-container">
-      <!-- Campos gerados dinamicamente -->
+      <!-- Os campos serão gerados dinamicamente -->
     </div>
     <button onclick="backToStep1()">Voltar</button>
     <button onclick="processCriteriaNames()">Continuar</button>
   </section>
 
-  <!-- 3a: Escolha o método de preenchimento da comparação pareada -->
-  <section id="comparison-method-section" class="hidden">
-    <h2>3: Escolha o método de preenchimento da matriz de comparação pareada</h2>
-    <div class="comparison-options">
-      <div class="option">
-        <input type="radio" id="method-direct" name="comparisonMethod" value="direct" checked>
-        <label for="method-direct">Matriz Direta</label>
-        <div class="image-placeholder">[Imagem da Matriz Direta]</div>
-      </div>
-      <div class="option">
-        <input type="radio" id="method-form" name="comparisonMethod" value="form">
-        <label for="method-form">Formulário</label>
-        <div class="image-placeholder">[Imagem do Formulário]</div>
-      </div>
-    </div>
-    <button onclick="backToNames()">Voltar</button>
-    <button onclick="selectComparisonMethod()">Ok</button>
-  </section>
-
-  <!-- 3b: Comparação Pareada dos Critérios -->
+  <!-- 3: Comparação Pareada dos Critérios -->
   <section id="pairwise-section" class="hidden">
     <h2>3: Comparação Pareada dos Critérios</h2>
     <p class="instruction">
-      Para cada célula (ou par) da matriz, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o da coluna. Os valores recíprocos serão calculados automaticamente.
+      Para cada célula acima da diagonal, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o critério da coluna. Os valores abaixo da diagonal serão calculados automaticamente como o recíproco.
     </p>
     <div id="pairwise-form">
-      <!-- Interface de comparação preenchida dinamicamente -->
+      <!-- A matriz de comparação será construída aqui -->
     </div>
-    <button onclick="backToComparisonMethod()">Voltar</button>
+    <button onclick="backToNames()">Voltar</button>
     <button onclick="calculateAHP()">Calcular Pesos e Consistência</button>
   </section>
 
