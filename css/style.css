@@ -67,38 +67,33 @@ input, select, button, textarea {
 }
 
 button {
-  display: block;
-  margin: 10px auto;
   cursor: pointer;
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 8px;
+  border-radius: 10px;
 }
-
 
 /* Estilo para as opções de método */
 .comparison-options {
   display: flex;
   justify-content: space-around;
   margin: 20px 0;
+  border-radius: 10px;
 }
 
 .comparison-options .option {
   border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  width: 90%;
+  border-radius: 4px;
+  padding: 10px;
+  width: 40%;
+  border-radius: 10px;
   text-align: center;
 }
 
-.image-placeholder {
-  width: 100%;
-  height: 350px;
-  background-color: #eaeaea;
-  margin-top: 10px;
+/* Remove controle de tamanho via CSS para as imagens da seção 3,
+   os tamanhos serão definidos no HTML */
+
+/* Centraliza os botões */
+.button-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-style: italic;
-  color: #666;
+  gap: 10px;
 }

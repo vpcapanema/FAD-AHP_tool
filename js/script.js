@@ -88,11 +88,15 @@ function selectComparisonMethod() {
   document.getElementById("pairwise-section").classList.remove("hidden");
   
   const h2 = document.querySelector("#pairwise-section h2");
+  const instructionP = document.querySelector("#pairwise-section .instruction");
+  
   if (chosenMethod === "direct") {
     h2.textContent = "4. Matriz direta de comparação pareada dos critérios";
+    instructionP.textContent = "Para cada célula (ou par) da matriz, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o da coluna. Os valores recíprocos serão calculados automaticamente.";
     generateDirectMatrix();
   } else {
     h2.textContent = "4. Formulário de comparação pareada dos critérios";
+    instructionP.textContent = "Para cada linha (ou par) do formulário, selecione a intensidade de importância que indica o quanto o critério da primeira coluna é mais importante que o da segunda coluna. Os valores recíprocos serão calculados automaticamente.";
     generatePairwiseFormMethod();
   }
 }

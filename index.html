@@ -13,7 +13,7 @@
     </p>
   </header>
 
-  <!-- Seção 1: Quantidade de Critérios -->
+  <!-- 1: Selecione a quantidade de critérios -->
   <section id="step1-section">
     <h2>1: Selecione a quantidade de critérios que deseja comparar</h2>
     <select id="criteria-count">
@@ -39,21 +39,24 @@
       <option value="19">19</option>
       <option value="20">20</option>
     </select>
-    <br>
-    <button onclick="processCriteriaCount()">Continuar</button>
+    <div class="button-container">
+      <button onclick="processCriteriaCount()">Continuar</button>
+    </div>
   </section>
 
-  <!-- Seção 2: Nomes dos Critérios -->
+  <!-- 2: Atribua nomes aos seus critérios -->
   <section id="names-section" class="hidden">
     <h2>2: Atribua nomes aos seus critérios</h2>
     <div id="names-container">
-      <!-- Os campos serão gerados dinamicamente -->
+      <!-- Campos gerados dinamicamente -->
     </div>
-    <button onclick="backToStep1()">Voltar</button>
-    <button onclick="processCriteriaNames()">Continuar</button>
+    <div class="button-container">
+      <button onclick="backToStep1()">Voltar</button>
+      <button onclick="processCriteriaNames()">Continuar</button>
+    </div>
   </section>
 
-  <!-- Seção 3: Escolha do Método de Preenchimento -->
+  <!-- 3: Escolha do método de preenchimento -->
   <section id="comparison-method-section" class="hidden">
     <h2>3: Escolha o método de preenchimento da matriz de comparação pareada</h2>
     <div class="comparison-options">
@@ -61,51 +64,58 @@
         <input type="radio" id="method-direct" name="comparisonMethod" value="direct" checked>
         <label for="method-direct">Matriz Direta</label>
         <div class="image-placeholder">
-          <img src="img_folder/matriz_direta_ahp.png" alt="Matriz Direta" width="300" height="200">
+          <img src="img_folder/matriz_direta_ahp.png" alt="Matriz Direta" width="400" height="200", border-radius: 10px;>
         </div>
       </div>
       <div class="option">
         <input type="radio" id="method-form" name="comparisonMethod" value="form">
         <label for="method-form">Formulário</label>
         <div class="image-placeholder">
-          <img src="img_folder/formulario_ahp.png" alt="Formulário" width="300" height="200">
+          <img src="img_folder/formulario_ahp.png" alt="Formulário" width="300" height="200", border-radius: 10px;>
         </div>
       </div>
     </div>
-    <button onclick="backToNames()">Voltar</button>
-    <button onclick="selectComparisonMethod()">Continuar</button>
+    <div class="button-container">
+      <button onclick="backToNames()">Voltar</button>
+      <button onclick="selectComparisonMethod()">Continuar</button>
+    </div>
   </section>
-  
 
-  <!-- Seção 4: Comparação Pareada dos Critérios -->
+  <!-- 4: Comparação Pareada dos Critérios -->
   <section id="pairwise-section" class="hidden">
     <h2 id="pairwise-title">4: Comparação Pareada dos Critérios</h2>
-    <!-- Imagem da escala definida via HTML -->
-    <img src="img_folder/escala_intensidade_importancia_criterios_ahp.png" alt="Escala de Intensidade de Importância dos Critérios" width="700" style="display:block; margin:0 auto 15px; border:2px solid black;">
+    <!-- Imagem da escala definida via HTML com tamanho e borda especificados -->
+    <img src="img_folder/escala_intensidade_importancia_criterios_ahp.png" alt="Escala de Intensidade de Importância" 
+    width="700" style="display:block; margin:0 auto 15px; border:2px solid black; border-radius: 10px;">
     <p class="instruction">
-      Para cada célula (ou par) da matriz, selecione a intensidade de importância que indica o quanto o critério da linha é mais importante que o da coluna. Os valores recíprocos serão calculados automaticamente.
+      <!-- A instrução será atualizada dinamicamente -->
     </p>
     <div id="pairwise-form">
       <!-- Interface de comparação gerada dinamicamente -->
     </div>
-    <button onclick="backToComparisonMethod()">Voltar</button>
-    <button onclick="calculateAHP()">Continuar</button>
+    <div class="button-container">
+      <button onclick="backToComparisonMethod()">Voltar</button>
+      <button onclick="calculateAHP()">Continuar</button>
+    </div>
   </section>
 
-  <!-- Seção 5: Resultados -->
+  <!-- 5: Resultados -->
   <section id="result-section" class="hidden">
     <h2>5: Resultados</h2>
     <div id="results"></div>
-    <button onclick="backToPairwise()">Voltar</button>
-    <button onclick="location.reload()">Reiniciar</button>
-    <br>
-    <label for="export-format">Exportar relatório:</label>
-    <select id="export-format">
-      <option value="PDF">PDF - Relatório inteiro</option>
-      <option value="CSV">CSV - Matriz e métricas</option>
-      <option value="XLSX">XLSX - Matriz e métricas</option>
-    </select>
-    <button onclick="exportDataReport()">Exportar</button>
+    <div class="button-container">
+      <button onclick="backToPairwise()">Voltar</button>
+      <button onclick="location.reload()">Reiniciar</button>
+    </div>
+    <div class="button-container">
+      <label for="export-format">Exportar relatório:</label>
+      <select id="export-format">
+        <option value="PDF">PDF - Relatório inteiro</option>
+        <option value="CSV">CSV - Matriz e métricas</option>
+        <option value="XLSX">XLSX - Matriz e métricas</option>
+      </select>
+      <button onclick="exportDataReport()">Exportar</button>
+    </div>
   </section>
 
   <!-- Inclusão das bibliotecas via CDN -->
