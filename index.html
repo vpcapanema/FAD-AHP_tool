@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=sigma-ahp.html">
+    <title>SIGMA - AHP Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f203e 0%, #244b72 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #5cb65c;
+            border-radius: 50%;
+            margin: 2rem auto;
+            animation: spin 1s linear infinite;
+        }
+
+        .link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: #5cb65c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            background: #4a9d4a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(92, 182, 92, 0.4);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📊</div>
+        <h1>SIGMA - AHP Calculator</h1>
+        <p>Sistema Integrado de Gestão, Monitoramento e Apoio ao PLI/SP-2050</p>
+        <div class="spinner"></div>
+        <p>Redirecionando para a calculadora AHP...</p>
+        <a href="sigma-ahp.html" class="link">Clique aqui se não for redirecionado automaticamente</a>
+        
+        <div class="footer">
+            <p>&copy; 2025 SIGMA PLI/SP-2050. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // Redirecionar após 0.5 segundos para garantir que a página carregue
+        setTimeout(function() {
+            window.location.href = 'sigma-ahp.html';
+        }, 500);
+    </script>
+</body>
+</html>
