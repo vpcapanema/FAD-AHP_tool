@@ -2,18 +2,39 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 20px;
-  background-color: #fafafa;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #333;
+  min-height: 100vh;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 header {
   text-align: center;
   margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 h1 {
   font-size: 2.5em;
   margin-bottom: 5px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .summary {
@@ -27,6 +48,15 @@ h2 {
   font-size: 1.5em !important;
   margin-bottom: 10px;
   padding: 15px;
+  color: #fff;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+h2:hover {
+  transform: scale(1.05);
 }
 
 section {
@@ -34,10 +64,22 @@ section {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  padding: 3px !important;
-  background-color: #fff;
+  padding: 20px !important;
+  background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.8s ease-out;
+  transition: box-shadow 0.3s ease;
+}
+
+section:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .hidden {
@@ -54,29 +96,60 @@ table {
   border-collapse: collapse;
   margin: 10px 0;
   width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 table, th, td {
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 th {
-  background-color: #f0f0f0;
+  background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: rgba(102, 126, 234, 0.1);
 }
 
 input, select, button, textarea {
   font-size: 16px;
-  padding: 5px !important;
+  padding: 10px !important;
   margin: 5px;
   margin-bottom: 20px !important;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus, button:focus, textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  outline: none;
 }
 
 button {
   cursor: pointer;
-  padding: 5px !important;
+  padding: 10px 20px !important;
   border-radius: 10px !important;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 /* Centraliza os botões */
@@ -85,4 +158,54 @@ button {
   justify-content: center;
   gap: 10px;
   border-radius: 10px;
+}
+
+/* Loading spinner */
+.loading {
+  text-align: center;
+  font-size: 1.2em;
+  color: #667eea;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tooltips */
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+input:hover + .tooltip, .tooltip:hover {
+  opacity: 1;
+}
+
+/* Success message */
+.success-message {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etapa 2: Nomear Critérios - SIGMA AHP</title>
+
+    <!-- SIGMA AHP specific styles -->
+    <link rel="stylesheet" href="sigma-ahp.css">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Montserrat Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- PLI Navbar Header -->
+    <header class="l-header">
+        <nav class="pli-navbar">
+            <div class="pli-navbar__container">
+                <a href="sigma-ahp.html" class="pli-navbar__brand">
+                    <i class="fas fa-calculator"></i> SIGMA - AHP Calculator
+                </a>
+
+                <ul class="pli-navbar__nav">
+                    <li><a href="sigma-ahp.html" class="pli-navbar__link">Início</a></li>
+                    <li><a href="#" class="pli-navbar__link pli-navbar__link--active">Calculadora</a></li>
+                    <li><a href="#" class="pli-navbar__link">Ajuda</a></li>
+                </ul>
+
+                <div class="pli-navbar__utilities">
+                    <button class="pli-navbar__notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="pli-navbar__notification-badge">3</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="l-main">
+        <div class="l-container">
+            <!-- Breadcrumb Navigation -->
+            <nav class="breadcrumb">
+                <a href="sigma-ahp.html"><i class="fas fa-home"></i> Início</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="step1-criterios.html">Etapa 1</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Etapa 2: Nomes</span>
+            </nav>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-step completed">
+                        <div class="progress-circle">1</div>
+                        <span>Critérios</span>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="progress-circle">2</div>
+                        <span>Nomes</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">3</div>
+                        <span>Método</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">4</div>
+                        <span>Comparação</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">5</div>
+                        <span>Resultados</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <section class="ahp-section info-card">
+                <div class="info-card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>Sobre esta Etapa: Nomear Critérios</h2>
+                </div>
+                <div class="info-card-content">
+                    <p>Agora você irá <strong>atribuir nomes descritivos</strong> para cada um dos critérios que serão comparados no processo de decisão.</p>
+                    
+                    <div class="info-highlights">
+                        <div class="info-item">
+                            <i class="fas fa-tag"></i>
+                            <div>
+                                <strong>Nomes claros e específicos</strong>
+                                <p>Use termos que reflitam exatamente o que cada critério representa. Por exemplo: "Custo Total", "Qualidade do Produto", "Prazo de Entrega".</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-spell-check"></i>
+                            <div>
+                                <strong>Evite ambiguidades</strong>
+                                <p>Escolha nomes que não deixem dúvidas sobre o que está sendo avaliado. Nomes genéricos podem confundir na hora da comparação.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-arrow-right"></i>
+                            <div>
+                                <strong>Próximos passos</strong>
+                                <p>Após nomear todos os critérios, você escolherá o método de comparação (matriz direta ou formulário guiado).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Section -->
+            <section class="ahp-section">
+                <h2 class="step-title">
+                    <span class="step-number">2</span>
+                    Digite os nomes dos critérios
+                </h2>
+                
+                <div id="criteriaInputs" class="criteria-inputs">
+                    <!-- Inputs serão gerados dinamicamente -->
+                </div>
+                
+                <div class="c-form-actions">
+                    <a href="step1-criterios.html" class="c-btn c-btn--secondary">
+                        <i class="fas fa-arrow-left c-btn__icon"></i>Voltar
+                    </a>
+                    <button onclick="processCriteriaNames()" class="c-btn c-btn--primary">
+                        Continuar<i class="fas fa-arrow-right c-btn__icon c-btn__icon--right"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="l-footer">
+        <div class="l-footer__content">
+            <p>&copy; 2025 SIGMA - Sistema Integrado de Gestão, Monitoramento e Apoio técnico ao PLI/SP-2050. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script>
+        // Gerar inputs de critérios
+        document.addEventListener('DOMContentLoaded', function() {
+            const count = localStorage.getItem('ahp_criteriaCount');
+            
+            if (!count || count < 1) {
+                alert('Número de critérios não encontrado. Redirecionando para a Etapa 1.');
+                window.location.href = 'step1-criterios.html';
+                return;
+            }
+
+            const container = document.getElementById('criteriaInputs');
+            const savedCriteria = JSON.parse(localStorage.getItem('ahp_criteria') || '[]');
+            
+            for (let i = 1; i <= count; i++) {
+                const formGroup = document.createElement('div');
+                formGroup.className = 'c-form-group';
+                
+                const label = document.createElement('label');
+                label.className = 'c-form-label';
+                label.setAttribute('for', `criteria${i}`);
+                label.innerHTML = `<i class="fas fa-tag"></i> Critério ${i}`;
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `criteria${i}`;
+                input.name = `criteria${i}`;
+                input.className = 'c-form-control';
+                input.placeholder = `Digite o nome do critério ${i}`;
+                input.value = savedCriteria[i-1] || '';
+                input.required = true;
+                
+                const helpText = document.createElement('small');
+                helpText.className = 'form-help';
+                helpText.innerHTML = '<i class="fas fa-info-circle"></i> Use um nome descritivo e específico';
+                
+                formGroup.appendChild(label);
+                formGroup.appendChild(input);
+                formGroup.appendChild(helpText);
+                container.appendChild(formGroup);
+            }
+        });
+
+        function processCriteriaNames() {
+            const count = parseInt(localStorage.getItem('ahp_criteriaCount'));
+            const criteria = [];
+            
+            let valid = true;
+            for (let i = 1; i <= count; i++) {
+                const input = document.getElementById(`criteria${i}`);
+                const value = input.value.trim();
+                
+                if (!value) {
+                    input.style.borderColor = 'var(--pli-error)';
+                    valid = false;
+                } else {
+                    input.style.borderColor = '';
+                    criteria.push(value);
+                }
+            }
+            
+            if (!valid) {
+                alert('Por favor, preencha todos os nomes dos critérios.');
+                return;
+            }
+            
+            // Verificar duplicados
+            const duplicates = criteria.filter((name, index) => criteria.indexOf(name) !== index);
+            if (duplicates.length > 0) {
+                alert('Atenção: Há critérios com nomes duplicados. Use nomes únicos para cada critério.');
+                return;
+            }
+            
+            // Salvar critérios no localStorage
+            localStorage.setItem('ahp_criteria', JSON.stringify(criteria));
+            
+            // Redirecionar para a próxima etapa
+            window.location.href = 'step3-metodo.html';
+        }
+    </script>
+</body>
+</html>

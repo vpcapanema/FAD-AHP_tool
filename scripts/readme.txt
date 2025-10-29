@@ -1,0 +1,1 @@
+Este arquivo substitui o 'scripts /readme.txt' problemático

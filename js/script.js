@@ -13,9 +13,7 @@ let chosenMethod = "direct"; // "direct" ou "form"
 function processCriteriaCount() {
   const countSelect = document.getElementById("criteria-count");
   criteriaCount = parseInt(countSelect.value);
-  document.getElementById("step1-section").classList.add("hidden");
   showNamesSection();
-  document.getElementById("names-section").classList.remove("hidden");
 }
 
 // -----------------------------------------------------------
@@ -36,8 +34,7 @@ function showNamesSection() {
 
 // Volta da etapa 2 para a etapa 1
 function backToStep1() {
-  document.getElementById("names-section").classList.add("hidden");
-  document.getElementById("step1-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
 }
 
 // -----------------------------------------------------------
@@ -45,32 +42,96 @@ function backToStep1() {
 // -----------------------------------------------------------
 function processCriteriaNames() {
   criteria = [];
+  let hasError = false;
   for (let i = 0; i < criteriaCount; i++) {
     let input = document.getElementById("criteria_" + i);
     let name = input.value.trim();
     if (name === "") {
-      alert(`Preencha o nome do critério ${i + 1}!`);
-      input.focus();
-      return;
+      showError(input, "Preencha o nome do critério!");
+      hasError = true;
+    } else if (name.length < 3) {
+      showError(input, "O nome deve ter mais de 3 caracteres!");
+      hasError = true;
+    } else {
+      clearError(input);
     }
-    if (name.length < 3) {
-      alert(`O nome do critério ${i + 1} deve ter mais de três caracteres`);
-      input.focus();
-      return;
-    }
-    criteria.push(name);
+    if (!hasError) criteria.push(name);
   }
-  alert("Critérios preenchidos com sucesso!");
-  document.getElementById("names-section").classList.add("hidden");
-  document.getElementById("comparison-method-section").classList.remove("hidden");
+  if (!hasError) {
+    showSuccess("Critérios preenchidos com sucesso!");
+    // Navegação tratada pelas abas no HTML
+  }
 }
+
+// Função para mostrar erro em tempo real
+function showError(element, message) {
+  element.style.borderColor = "red";
+  element.style.boxShadow = "0 0 10px rgba(255, 0, 0, 0.5)";
+  let tooltip = element.nextElementSibling;
+  if (!tooltip || !tooltip.classList.contains("tooltip")) {
+    tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.style.color = "red";
+    tooltip.style.fontSize = "0.8em";
+    tooltip.style.marginTop = "5px";
+    element.parentNode.insertBefore(tooltip, element.nextSibling);
+  }
+  tooltip.textContent = message;
+}
+
+// Função para limpar erro
+function clearError(element) {
+  element.style.borderColor = "#ddd";
+  element.style.boxShadow = "none";
+  let tooltip = element.nextElementSibling;
+  if (tooltip && tooltip.classList.contains("tooltip")) {
+    tooltip.remove();
+  }
+}
+
+// Função para mostrar sucesso
+function showSuccess(message) {
+  const successDiv = document.createElement("div");
+  successDiv.className = "success-message";
+  successDiv.textContent = message;
+  successDiv.style.color = "green";
+  successDiv.style.fontWeight = "bold";
+  successDiv.style.textAlign = "center";
+  successDiv.style.marginBottom = "10px";
+  successDiv.style.animation = "fadeIn 0.5s ease";
+  const container = document.getElementById("names-container");
+  if (container) {
+    container.insertBefore(successDiv, container.firstChild);
+  }
+  setTimeout(() => successDiv.remove(), 3000);
+}
+
+// Adicionar validação em tempo real nos inputs
+document.addEventListener("DOMContentLoaded", function() {
+  // ...existing code...
+  // Adicionar event listeners para validação em tempo real
+  setTimeout(() => {
+    for (let i = 0; i < criteriaCount; i++) {
+      let input = document.getElementById("criteria_" + i);
+      if (input) {
+        input.addEventListener("input", function() {
+          let name = this.value.trim();
+          if (name === "" || name.length < 3) {
+            showError(this, name === "" ? "Campo obrigatório!" : "Mínimo 3 caracteres!");
+          } else {
+            clearError(this);
+          }
+        });
+      }
+    }
+  }, 100); // Pequeno delay para garantir que os inputs existam
+});
 
 // -----------------------------------------------------------
 // Volta da seleção do método para a etapa 2
 // -----------------------------------------------------------
 function backToNames() {
-  document.getElementById("comparison-method-section").classList.add("hidden");
-  document.getElementById("names-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
 }
 
 // -----------------------------------------------------------
@@ -84,11 +145,10 @@ function selectComparisonMethod() {
       break;
     }
   }
-  document.getElementById("comparison-method-section").classList.add("hidden");
-  document.getElementById("pairwise-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
   
-  const h2 = document.querySelector("#pairwise-section h2");
-  const instructionP = document.querySelector("#pairwise-section .instruction");
+  const h2 = document.querySelector("#pairwise-title");
+  const instructionP = document.querySelector("#step4 .instruction");
   
   if (chosenMethod === "direct") {
     h2.textContent = "4. Matriz direta de comparação pareada dos critérios";
@@ -105,8 +165,7 @@ function selectComparisonMethod() {
 // Volta da seção de comparação para a seleção do método
 // -----------------------------------------------------------
 function backToComparisonMethod() {
-  document.getElementById("pairwise-section").classList.add("hidden");
-  document.getElementById("comparison-method-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
 }
 
 // -----------------------------------------------------------
@@ -129,6 +188,7 @@ function generateDirectMatrix() {
       } else if (i < j) {
         html += `<td>${createSelectInput(i, j)}</td>`;
       } else {
+        // Para a parte inferior da matriz, calcular o recíproco
         const key = "pair_" + j + "_" + i;
         const currentVal = pairwiseValues[key] || 1;
         const reciprocal = (1 / currentVal).toFixed(4);
@@ -223,68 +283,75 @@ function updateReciprocal(i, j) {
 // 3/4: Calcula os pesos e as métricas do AHP e exibe os resultados
 // -----------------------------------------------------------
 function calculateAHP() {
-  const nCriteria = criteria.length;
-  let matrix = [];
-  for (let i = 0; i < nCriteria; i++) {
-    matrix[i] = [];
-    for (let j = 0; j < nCriteria; j++) {
-      if (i === j) {
-        matrix[i][j] = 1;
-      } else if (i < j) {
-        const key = "pair_" + i + "_" + j;
-        const val = pairwiseValues[key] || parseFloat(document.getElementById(key).value);
-        matrix[i][j] = val;
-      } else {
-        const key = "pair_" + j + "_" + i;
-        const reciprocal = 1 / (pairwiseValues[key] || parseFloat(document.getElementById(key).value));
-        matrix[i][j] = reciprocal;
+  // Mostrar loading
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = '<div class="loading">Calculando pesos e consistência... <div class="spinner"></div></div>';
+  // Navegação tratada pelas abas no HTML
+
+  // Simular delay para feedback visual (pode remover em produção)
+  setTimeout(() => {
+    const nCriteria = criteria.length;
+    let matrix = [];
+    for (let i = 0; i < nCriteria; i++) {
+      matrix[i] = [];
+      for (let j = 0; j < nCriteria; j++) {
+        if (i === j) {
+          matrix[i][j] = 1;
+        } else if (i < j) {
+          const key = "pair_" + i + "_" + j;
+          const val = pairwiseValues[key] || parseFloat(document.getElementById(key).value);
+          matrix[i][j] = val;
+        } else {
+          const key = "pair_" + j + "_" + i;
+          const reciprocal = 1 / (pairwiseValues[key] || parseFloat(document.getElementById(key).value));
+          matrix[i][j] = reciprocal;
+        }
       }
     }
-  }
-  let geoMeans = [];
-  let sumGeo = 0;
-  for (let i = 0; i < nCriteria; i++) {
-    let prod = 1;
-    for (let j = 0; j < nCriteria; j++) {
-      prod *= matrix[i][j];
+    let geoMeans = [];
+    let sumGeo = 0;
+    for (let i = 0; i < nCriteria; i++) {
+      let prod = 1;
+      for (let j = 0; j < nCriteria; j++) {
+        prod *= matrix[i][j];
+      }
+      geoMeans[i] = Math.pow(prod, 1 / nCriteria);
+      sumGeo += geoMeans[i];
     }
-    geoMeans[i] = Math.pow(prod, 1 / nCriteria);
-    sumGeo += geoMeans[i];
-  }
-  let weights = geoMeans.map(gm => gm / sumGeo);
-  let lambdaVector = [];
-  for (let i = 0; i < nCriteria; i++) {
-    let sumRow = 0;
-    for (let j = 0; j < nCriteria; j++) {
-      sumRow += matrix[i][j] * weights[j];
+    let weights = geoMeans.map(gm => gm / sumGeo);
+    let lambdaVector = [];
+    for (let i = 0; i < nCriteria; i++) {
+      let sumRow = 0;
+      for (let j = 0; j < nCriteria; j++) {
+        sumRow += matrix[i][j] * weights[j];
+      }
+      lambdaVector[i] = sumRow / weights[i];
     }
-    lambdaVector[i] = sumRow / weights[i];
-  }
-  let lambdaMax = lambdaVector.reduce((a, b) => a + b, 0) / nCriteria;
-  let CI = (lambdaMax - nCriteria) / (nCriteria - 1);
-  const RI_values = {
-    1: 0.00,
-    2: 0.00,
-    3: 0.58,
-    4: 0.90,
-    5: 1.12,
-    6: 1.24,
-    7: 1.32,
-    8: 1.41,
-    9: 1.45,
-    10: 1.49
-  };
-  let RI = RI_values[nCriteria] || 1.5;
-  let CR = RI === 0 ? 0 : CI / RI;
-  displayResults(weights, lambdaMax, CI, CR, matrix);
+    let lambdaMax = lambdaVector.reduce((a, b) => a + b, 0) / nCriteria;
+    let CI = (lambdaMax - nCriteria) / (nCriteria - 1);
+    const RI_values = {
+      1: 0.00,
+      2: 0.00,
+      3: 0.58,
+      4: 0.90,
+      5: 1.12,
+      6: 1.24,
+      7: 1.32,
+      8: 1.41,
+      9: 1.45,
+      10: 1.49
+    };
+    let RI = RI_values[nCriteria] || 1.5;
+    let CR = RI === 0 ? 0 : CI / RI;
+    displayResults(weights, lambdaMax, CI, CR, matrix);
+  }, 1000); // Delay de 1s para simular processamento
 }
 
 // -----------------------------------------------------------
 // Volta da etapa 5 para a seção de comparação (etapa 4)
 // -----------------------------------------------------------
 function backToPairwise() {
-  document.getElementById("result-section").classList.add("hidden");
-  document.getElementById("pairwise-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
 }
 
 // -----------------------------------------------------------
@@ -316,8 +383,7 @@ function displayResults(weights, lambdaMax, CI, CR, matrix) {
   }
   html += "</table>";
   resultsDiv.innerHTML = html;
-  document.getElementById("pairwise-section").classList.add("hidden");
-  document.getElementById("result-section").classList.remove("hidden");
+  // Navegação tratada pelas abas no HTML
   exportData = {
     criteria: criteria,
     weights: weights,
