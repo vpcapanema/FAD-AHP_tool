@@ -33,31 +33,9 @@
                     <li><a href="#" class="pli-navbar__link">Sobre</a></li>
                     <li><a href="#" class="pli-navbar__link">Ajuda</a></li>
                 </ul>
-
-                <div class="pli-navbar__utilities">
-                    <button class="pli-navbar__notification" id="notificationBtn" onclick="toggleNotifications()">
-                        <i class="fas fa-bell"></i>
-                        <span class="pli-navbar__notification-badge" id="notificationCount">3</span>
-                    </button>
-                </div>
             </div>
         </nav>
     </header>
-
-    <!-- Painel de Notificações -->
-    <div id="notificationPanel" class="notification-panel">
-        <div class="notification-panel__header">
-            <h3 class="notification-panel__title"><i class="fas fa-bell"></i> Notificações do Sistema</h3>
-        </div>
-        <div id="notificationList" class="notification-panel__list">
-            <!-- Notificações serão inseridas aqui -->
-        </div>
-        <div class="notification-panel__footer">
-            <button onclick="clearAllNotifications()" class="notification-panel__clear-btn">
-                <i class="fas fa-check-double"></i> Marcar todas como lidas
-            </button>
-        </div>
-    </div>
 
     <!-- Main Content -->
     <main class="l-main">
@@ -163,110 +141,5 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script>
-        // Sistema de Notificações
-        const notifications = [
-            {
-                id: 1,
-                icon: 'fas fa-info-circle',
-                color: '#0277bd',
-                title: 'Bem-vindo ao SIGMA AHP',
-                message: 'Esta ferramenta utiliza o método de Análise Hierárquica de Processo (AHP) para apoiar decisões multicritério.',
-                time: 'Agora',
-                read: false
-            },
-            {
-                id: 2,
-                icon: 'fas fa-lightbulb',
-                color: '#ffa726',
-                title: 'Dica de Uso',
-                message: 'Para melhores resultados, certifique-se de que a Razão de Consistência (CR) seja inferior a 0,10 (10%).',
-                time: '5 min atrás',
-                read: false
-            },
-            {
-                id: 3,
-                icon: 'fas fa-download',
-                color: '#66bb6a',
-                title: 'Exportação Disponível',
-                message: 'Você pode exportar seus resultados em formato CSV ou JSON diretamente da página de resultados.',
-                time: '1 hora atrás',
-                read: false
-            }
-        ];
-
-        function loadNotifications() {
-            const listContainer = document.getElementById('notificationList');
-            const unreadCount = notifications.filter(n => !n.read).length;
-            
-            document.getElementById('notificationCount').textContent = unreadCount;
-            document.getElementById('notificationCount').style.display = unreadCount > 0 ? 'block' : 'none';
-            
-            listContainer.innerHTML = '';
-            
-            notifications.forEach(notif => {
-                const notifDiv = document.createElement('div');
-                notifDiv.style.cssText = 'padding: 1rem; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.2s;' + (!notif.read ? 'background: #f5f9ff;' : '');
-                notifDiv.onmouseover = function() { this.style.background = '#e3f2fd'; };
-                notifDiv.onmouseout = function() { this.style.background = notif.read ? 'white' : '#f5f9ff'; };
-                notifDiv.onclick = function() { markAsRead(notif.id); };
-                
-                notifDiv.innerHTML = `
-                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                        <div style="flex-shrink: 0;">
-                            <i class="${notif.icon}" style="font-size: 1.5rem; color: ${notif.color};"></i>
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
-                                <strong style="color: var(--pli-azul-escuro); font-size: 0.95rem;">${notif.title}</strong>
-                                ${!notif.read ? '<span style="width: 8px; height: 8px; background: #2196f3; border-radius: 50%; display: inline-block;"></span>' : ''}
-                            </div>
-                            <p style="margin: 0 0 0.5rem 0; color: #666; font-size: 0.85rem; line-height: 1.4;">${notif.message}</p>
-                            <small style="color: #999; font-size: 0.75rem;"><i class="far fa-clock"></i> ${notif.time}</small>
-                        </div>
-                    </div>
-                `;
-                
-                listContainer.appendChild(notifDiv);
-            });
-        }
-
-        function toggleNotifications() {
-            const panel = document.getElementById('notificationPanel');
-            if (panel.style.display === 'none') {
-                panel.style.display = 'block';
-                loadNotifications();
-            } else {
-                panel.style.display = 'none';
-            }
-        }
-
-        function markAsRead(id) {
-            const notif = notifications.find(n => n.id === id);
-            if (notif) {
-                notif.read = true;
-                loadNotifications();
-            }
-        }
-
-        function clearAllNotifications() {
-            notifications.forEach(n => n.read = true);
-            loadNotifications();
-            document.getElementById('notificationPanel').style.display = 'none';
-        }
-
-        // Fechar painel ao clicar fora
-        document.addEventListener('click', function(event) {
-            const panel = document.getElementById('notificationPanel');
-            const btn = document.getElementById('notificationBtn');
-            
-            if (panel && btn && !panel.contains(event.target) && !btn.contains(event.target)) {
-                panel.style.display = 'none';
-            }
-        });
-
-        // Carregar notificações ao iniciar
-        window.addEventListener('DOMContentLoaded', loadNotifications);
-    </script>
 </body>
 </html>
